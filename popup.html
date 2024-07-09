@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<!--We changed the feature of a video immediately poping up
+as soon as the extension is clicked on.... 
+
+Instead, now a toggle box appears which allows the user to activate
+the extension whenever they want to start translating text.
+
+They check this box activate the popup.js script--> >
+<head>
+  <title>Video Pop-up Extension</title>
+  <style>
+    body {
+      width: 200px;
+      height: 100px;
+      margin: 0;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    #toggle {
+      display: flex;
+      align-items: center;
+    }
+    #toggle input {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="toggle">
+    <input type="checkbox" id="extensionToggle">
+    <label for="extensionToggle">Enable Video Pop-up</label>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
