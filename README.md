@@ -9,7 +9,7 @@ NOTE: In order to be able to run the included program, you need to follow these 
 2) Navigate to the Chrome Extension Portal, and activate "DEV Mode"
 - Go to www.chrome://extensions
 - In the top right-hand corner locate the toggle, "Developer Mode"
-- Click the toggle (The slider should turn blue, indicating that developer mode has been activated
+- Click the toggle (The slider should turn blue, indicating that developer mode has been activated)
                       
 3) Load the extension:
 - In the top left-hand corner, locate the "Load Unpacked" button
