@@ -26,7 +26,7 @@ NOTE: In order to be able to run the included program, you need to follow these 
 - A hand icon should now appear next to the puzzle icon, indicating that the extension has been installed appropriately 
 
 5) Use:
-- After selecting the extension, by clicking on the 'hand' icon, highlight any text on the page
+- After selecting the extension by clicking on the 'hand' icon, highlight any text on the page
 - Upon highlighting text, a video window should appear
 - To remove the video window from the page, de-select the highlighted text (This can be done by simply clicking elsewhere on the page)
 
