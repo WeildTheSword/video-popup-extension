@@ -1,68 +1,79 @@
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'textHighlighted') {
+    chrome.windows.getAll({populate: true}, (windows) => {
+      let popupExists = windows.some(window => window.type === 'popup' && window.tabs.some(tab => tab.url.includes('popup.html')));
+      if (!popupExists) {
+        chrome.windows.create({
+          url: chrome.runtime.getURL('popup.html'),
+          type: 'popup',
+          width: 320,
+          height: 240
+        });
+      }
+    });
+  }
+});
 document.addEventListener('mouseup', handleTextSelection);
 
-
-//Only activates video pop-up if text is selected
-// Here we are using an if statement to check if the selected text
-// Is greater than 1 element. 
-// Of course if text selected is greater than 0,
-// We need to tell our program that the user is highlighting text.
-// If this conditioni is satisfied, "showVideoPopup" 
-// Is activated, creating and allowing the user to see a video.
 function handleTextSelection() {
-  const selectedText = window.getSelection().toString().trim();
+  const selectedText = window.getSelection().toString().trim().toLowerCase();
   if (selectedText.length > 0) {
-    showVideoPopup();
+    showMediaPopup(selectedText);
   } else {
-    hideVideoPopup(); // nothing will show up if nothign is seelected
+    hideMediaPopup();
   }
 }
 
-function showVideoPopup() {
-  if (document.getElementById('video-popup')) {
-    return; 
-// The way that this essentially works is if the text is highlighted
-// The video window will stay on the screen
-// If the user deselects the text that they want to translate,
-// The video window will disappear
+function showMediaPopup(selectedText) {
+  const popup = document.getElementById('media-popup');
+  if (popup) {
+    return;
   }
 
+  let mediaPopup = document.createElement('div');
+  mediaPopup.id = 'media-popup';
+  mediaPopup.style.position = 'fixed';
+  mediaPopup.style.top = '10px';
+  mediaPopup.style.left = '10px';
+  mediaPopup.style.width = '320px';
+  mediaPopup.style.height = '240px';
+  mediaPopup.style.backgroundColor = 'white';
+  mediaPopup.style.zIndex = 10000;
+  mediaPopup.style.border = '1px solid black';
+  mediaPopup.style.boxShadow = '0px 0px 10px rgba(0,0,0,0.5)';
+  mediaPopup.style.padding = '10px';
+  mediaPopup.style.cursor = 'move';
 
-  //General structure for container of video window
-  let videoPopup = document.createElement('div');
-  videoPopup.id = 'video-popup';
-  videoPopup.style.position = 'fixed';
-  videoPopup.style.top = '10px';
-  videoPopup.style.left = '10px';
-  videoPopup.style.width = '320px';
-  videoPopup.style.height = '240px';
-  videoPopup.style.backgroundColor = 'white';
-  videoPopup.style.zIndex = 10000;
-  videoPopup.style.border = '1px solid black';
-  videoPopup.style.boxShadow = '0px 0px 10px rgba(0,0,0,0.5)';
-  videoPopup.style.padding = '10px';
-  videoPopup.style.cursor = 'move';
-  
-  let videoElement = document.createElement('video');
-  videoElement.controls = true;
-  videoElement.style.width = '100%';
-  videoElement.style.height = '100%';
-  
-  let sourceElement = document.createElement('source');
-  sourceElement.src = chrome.runtime.getURL('video.mp4');
-  sourceElement.type = 'video/mp4';
-  
-  videoElement.appendChild(sourceElement);
-  videoPopup.appendChild(videoElement);
-  
-  document.body.appendChild(videoPopup);
-  
-  dragElement(videoPopup);
+  let imgElement = document.createElement('img');
+  imgElement.style.width = '100%';
+  imgElement.style.height = '100%';
+
+  //
+  switch (selectedText) {
+    case 'and':
+      imgElement.src = chrome.runtime.getURL('Cat.png');
+      break;
+    case 'the':
+      imgElement.src = chrome.runtime.getURL('Video.mp4');
+      break;
+    case 'is':
+      imgElement.src = chrome.runtime.getURL('Turtle.png');
+      break;
+    default:
+      imgElement = null;
+  }
+
+  if (imgElement) {
+    mediaPopup.appendChild(imgElement);
+    document.body.appendChild(mediaPopup);
+    dragElement(mediaPopup);
+  }
 }
 
-function hideVideoPopup() {
-  const videoPopup = document.getElementById('video-popup');
-  if (videoPopup) {
-    videoPopup.remove();
+function hideMediaPopup() {
+  const mediaPopup = document.getElementById('media-popup');
+  if (mediaPopup) {
+    mediaPopup.remove();
   }
 }
 

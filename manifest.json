@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Video Pop-up Extension",
+  "name": "Media Pop-up Extension",
   "version": "4.0",
-  "description": "A Chrome extension that shows a video pop-up window when text is highlighted.",
+  "description": "A Chrome extension that shows a media pop-up window when specific words are highlighted.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -23,6 +23,12 @@
     {
       "matches": ["*://*/*"],
       "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["Cat.png", "Dog.png", "Turtle.png"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
